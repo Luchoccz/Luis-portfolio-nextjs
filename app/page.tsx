@@ -778,7 +778,7 @@ export default function Home() {
               maxWidth: { xs: "100%", md: 600 },
               width: "100%",
               zIndex: 2,
-              mt: { xs: 34, md: 0 },
+              mt: { xs: 42, md: 0 },
               textAlign: { xs: "center", md: "left" },
             }}
           >
@@ -855,6 +855,23 @@ export default function Home() {
               boxShadow: "none",
             }}
           >
+            <Box
+              sx={{
+                position: "absolute",
+                inset: 0,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                maskImage: {
+                  xs: "linear-gradient(to bottom, #000 0%, #000 42%, rgba(0,0,0,0.55) 58%, rgba(0,0,0,0.22) 76%, rgba(0,0,0,0.08) 100%)",
+                  md: "none",
+                },
+                WebkitMaskImage: {
+                  xs: "linear-gradient(to bottom, #000 0%, #000 42%, rgba(0,0,0,0.55) 58%, rgba(0,0,0,0.22) 76%, rgba(0,0,0,0.08) 100%)",
+                  md: "none",
+                },
+              }}
+            >
             <Box
               sx={{
                 position: "absolute",
@@ -1035,6 +1052,7 @@ export default function Home() {
                 );
               })}
             </Box>
+            </Box>
 
             <Box
               sx={{
@@ -1050,7 +1068,7 @@ export default function Home() {
                 zIndex: 2,
               }}
             >
-              <Typography sx={{ fontSize: { xs: 42, md: 50 }, fontWeight: 900, letterSpacing: -3, color: "#4f47ff", lineHeight: 0.8 }}>
+              <Typography sx={{ fontSize: { xs: 42, md: 50 }, fontWeight: 900, letterSpacing: -3, color: "#0b0c10", lineHeight: 0.8 }}>
                 LC
               </Typography>
             </Box>
