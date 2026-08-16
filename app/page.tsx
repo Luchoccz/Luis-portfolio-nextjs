@@ -819,14 +819,22 @@ export default function Home() {
                 <LocationOnOutlinedIcon sx={{ fontSize: 18, color: "#a9b6cf" }} />
                 <Typography variant="body2">Caracas, Venezuela</Typography>
               </Box>
-              <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+              <Link
+                href="mailto:luiszrita@gmail.com"
+                underline="none"
+                sx={{ display: "flex", alignItems: "center", gap: 1, color: "inherit", "&:hover": { color: "#f5f7fa" } }}
+              >
                 <EmailOutlinedIcon sx={{ fontSize: 18, color: "#a9b6cf" }} />
                 <Typography variant="body2">luiszrita@gmail.com</Typography>
-              </Box>
-              <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+              </Link>
+              <Link
+                href="tel:+584241070060"
+                underline="none"
+                sx={{ display: "flex", alignItems: "center", gap: 1, color: "inherit", "&:hover": { color: "#f5f7fa" } }}
+              >
                 <PhoneOutlinedIcon sx={{ fontSize: 18, color: "#a9b6cf" }} />
                 <Typography variant="body2">+58 424-1070060</Typography>
-              </Box>
+              </Link>
             </Box>
           </Box>
 
