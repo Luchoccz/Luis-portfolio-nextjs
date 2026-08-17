@@ -91,6 +91,7 @@ const copyByLanguage = {
     contactFormSuccessMessage: "¡Mensaje enviado! Te responderé lo antes posible.",
     contactFormGenericErrorMessage: "No se pudo enviar el mensaje. Intenta de nuevo o escríbeme directo por correo.",
     contactFormConfigMissingMessage: "El formulario aún no está configurado. Escríbeme directo por correo mientras tanto.",
+    contactFormRateLimitedMessage: "Alcanzaste el límite de 2 mensajes por día. Intenta de nuevo mañana o escríbeme directo por correo.",
     contactFormRequiredEmailMessage: "Ingresa tu correo electrónico.",
     contactFormInvalidEmailMessage: "Ingresa un correo electrónico válido.",
     contactFormRequiredMessageMessage: "Escribe tu mensaje.",
@@ -138,6 +139,7 @@ const copyByLanguage = {
     contactFormSuccessMessage: "Message sent! I'll get back to you as soon as possible.",
     contactFormGenericErrorMessage: "Couldn't send the message. Please try again or email me directly.",
     contactFormConfigMissingMessage: "The form isn't configured yet. Please email me directly in the meantime.",
+    contactFormRateLimitedMessage: "You've reached the limit of 2 messages per day. Please try again tomorrow or email me directly.",
     contactFormRequiredEmailMessage: "Enter your email address.",
     contactFormInvalidEmailMessage: "Enter a valid email address.",
     contactFormRequiredMessageMessage: "Write your message.",
@@ -1398,7 +1400,6 @@ export default function Home() {
 
           <Box sx={{ maxWidth: 560 }}>
             <ContactForm
-              recipientEmail="luiszrita@gmail.com"
               labels={{
                 emailLabel: t.contactFormEmailLabel,
                 emailPlaceholder: t.contactFormEmailPlaceholder,
@@ -1409,6 +1410,7 @@ export default function Home() {
                 successMessage: t.contactFormSuccessMessage,
                 genericErrorMessage: t.contactFormGenericErrorMessage,
                 configMissingMessage: t.contactFormConfigMissingMessage,
+                rateLimitedMessage: t.contactFormRateLimitedMessage,
                 requiredEmailMessage: t.contactFormRequiredEmailMessage,
                 invalidEmailMessage: t.contactFormInvalidEmailMessage,
                 requiredMessageMessage: t.contactFormRequiredMessageMessage,

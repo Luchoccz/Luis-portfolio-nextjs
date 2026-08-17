@@ -1,13 +1,11 @@
 'use client';
 
 import { useId, useRef, useState } from 'react';
-import emailjs from '@emailjs/browser';
 import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
 import SendRoundedIcon from '@mui/icons-material/SendRounded';
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -25,6 +23,7 @@ export interface ContactFormLabels {
   successMessage: string;
   genericErrorMessage: string;
   configMissingMessage: string;
+  rateLimitedMessage: string;
   requiredEmailMessage: string;
   invalidEmailMessage: string;
   requiredMessageMessage: string;
@@ -41,6 +40,7 @@ const defaultLabels: ContactFormLabels = {
   successMessage: '¡Mensaje enviado! Te responderé lo antes posible.',
   genericErrorMessage: 'No se pudo enviar el mensaje. Intenta de nuevo o escríbeme directo por correo.',
   configMissingMessage: 'El formulario aún no está configurado. Escríbeme directo por correo mientras tanto.',
+  rateLimitedMessage: 'Alcanzaste el límite de 2 mensajes por día. Intenta de nuevo mañana o escríbeme directo por correo.',
   requiredEmailMessage: 'Ingresa tu correo electrónico.',
   invalidEmailMessage: 'Ingresa un correo electrónico válido.',
   requiredMessageMessage: 'Escribe tu mensaje.',
@@ -49,18 +49,18 @@ const defaultLabels: ContactFormLabels = {
 
 interface ContactFormProps {
   labels?: Partial<ContactFormLabels>;
-  /** Destination inbox — informational only; the real recipient is set on the EmailJS template. */
-  recipientEmail?: string;
 }
 
 /**
- * Miniformulario de contacto autónomo. Envía directamente desde el
- * navegador vía EmailJS (sin backend propio) usando las credenciales
- * públicas configuradas en variables de entorno `NEXT_PUBLIC_EMAILJS_*`
- * (ver `.env.example`). Si no están configuradas, el formulario lo indica
- * claramente en vez de fallar en silencio.
+ * Miniformulario de contacto. Envía el mensaje a `POST /api/contact`
+ * (`app/api/contact/route.ts`), que aplica el rate limit por IP (2/día,
+ * respaldado por Upstash Redis — ver `lib/rate-limit.ts`) y recién ahí
+ * llama a la API REST de EmailJS desde el servidor con la Private Key
+ * (variables `EMAILJS_*` sin prefijo `NEXT_PUBLIC_`, ver `.env.example`).
+ * El formulario ya no habla con EmailJS directamente ni conoce esas
+ * credenciales — solo interpreta la respuesta del propio backend.
  */
-export default function ContactForm({ labels, recipientEmail = 'luiszrita@gmail.com' }: ContactFormProps) {
+export default function ContactForm({ labels }: ContactFormProps) {
   const t = { ...defaultLabels, ...labels };
   const formId = useId();
 
@@ -74,12 +74,9 @@ export default function ContactForm({ labels, recipientEmail = 'luiszrita@gmail.
   // Honeypot: real users never see or fill this field. Any bot that fills
   // every input on the page will, so a non-empty value means "spam" and we
   // quietly no-op instead of tipping the bot off with an explicit rejection.
+  // Also re-checked server-side (a bot could skip the client and POST
+  // directly), so this only avoids a wasted round trip for obvious cases.
   const honeypotRef = useRef<HTMLInputElement>(null);
-
-  const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
-  const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
-  const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
-  const isConfigured = Boolean(serviceId && templateId && publicKey);
 
   const validateEmail = () => {
     if (!email.trim()) {
@@ -130,36 +127,37 @@ export default function ContactForm({ labels, recipientEmail = 'luiszrita@gmail.
       return;
     }
 
-    if (!serviceId || !templateId || !publicKey) {
-      setStatus('error');
-      setFeedback(t.configMissingMessage);
-      return;
-    }
-
     setStatus('loading');
     setFeedback(null);
 
     try {
-      await emailjs.send(
-        serviceId,
-        templateId,
-        {
-          from_email: email.trim(),
-          reply_to: email.trim(),
-          to_email: recipientEmail,
-          message: message.trim(),
-        },
-        {
-          publicKey,
-          blockHeadless: true,
-          limitRate: { id: 'portfolio_contact_form', throttle: 20_000 },
-        }
-      );
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email.trim(), message: message.trim() }),
+      });
 
-      setStatus('success');
-      setFeedback(t.successMessage);
-      setEmail('');
-      setMessage('');
+      if (response.ok) {
+        setStatus('success');
+        setFeedback(t.successMessage);
+        setEmail('');
+        setMessage('');
+        return;
+      }
+
+      // The route always responds with a JSON `{ error, message }` body on
+      // failure (see app/api/contact/route.ts); `error` picks which local
+      // label to show instead of trusting the server's raw message text.
+      const data = (await response.json().catch(() => null)) as { error?: string } | null;
+
+      setStatus('error');
+      if (response.status === 429) {
+        setFeedback(t.rateLimitedMessage);
+      } else if (data?.error === 'not_configured') {
+        setFeedback(t.configMissingMessage);
+      } else {
+        setFeedback(t.genericErrorMessage);
+      }
     } catch {
       setStatus('error');
       setFeedback(t.genericErrorMessage);
@@ -264,12 +262,6 @@ export default function ContactForm({ labels, recipientEmail = 'luiszrita@gmail.
         >
           {isLoading ? t.submittingLabel : t.submitLabel}
         </Button>
-
-        {!isConfigured ? (
-          <Typography variant="caption" sx={{ color: '#8fa1bf' }}>
-            {t.configMissingMessage}
-          </Typography>
-        ) : null}
       </Box>
     </Box>
   );
