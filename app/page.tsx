@@ -21,6 +21,7 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import PhoneOutlinedIcon from "@mui/icons-material/PhoneOutlined";
 import ProjectCarousel, { PROJECTS } from "@/components/ProjectCarousel";
+import ContactForm from "@/components/ContactForm";
 import type { IconType } from "react-icons";
 import {
   SiCss,
@@ -81,6 +82,19 @@ const copyByLanguage = {
     certificationTitle: "Cursos y certificaciones",
     contactSectionLabel: "Conectemos",
     contactSectionTitle: "¿Tienes un proyecto en mente? Hagámoslo realidad.",
+    contactFormEmailLabel: "Correo electrónico",
+    contactFormEmailPlaceholder: "tu@correo.com",
+    contactFormMessageLabel: "Mensaje",
+    contactFormMessagePlaceholder: "Cuéntame sobre tu proyecto o consulta…",
+    contactFormSubmitLabel: "Enviar mensaje",
+    contactFormSubmittingLabel: "Enviando…",
+    contactFormSuccessMessage: "¡Mensaje enviado! Te responderé lo antes posible.",
+    contactFormGenericErrorMessage: "No se pudo enviar el mensaje. Intenta de nuevo o escríbeme directo por correo.",
+    contactFormConfigMissingMessage: "El formulario aún no está configurado. Escríbeme directo por correo mientras tanto.",
+    contactFormRequiredEmailMessage: "Ingresa tu correo electrónico.",
+    contactFormInvalidEmailMessage: "Ingresa un correo electrónico válido.",
+    contactFormRequiredMessageMessage: "Escribe tu mensaje.",
+    contactFormMinLengthMessageMessage: "El mensaje debe tener al menos 10 caracteres.",
     footerEmail: "Correo",
     backToTop: "Volver arriba",
   },
@@ -115,6 +129,19 @@ const copyByLanguage = {
     certificationTitle: "Courses & certifications",
     contactSectionLabel: "Let\'s connect",
     contactSectionTitle: "Do you have a project in mind? Let's make it happen.",
+    contactFormEmailLabel: "Email address",
+    contactFormEmailPlaceholder: "you@email.com",
+    contactFormMessageLabel: "Message",
+    contactFormMessagePlaceholder: "Tell me about your project or question…",
+    contactFormSubmitLabel: "Send message",
+    contactFormSubmittingLabel: "Sending…",
+    contactFormSuccessMessage: "Message sent! I'll get back to you as soon as possible.",
+    contactFormGenericErrorMessage: "Couldn't send the message. Please try again or email me directly.",
+    contactFormConfigMissingMessage: "The form isn't configured yet. Please email me directly in the meantime.",
+    contactFormRequiredEmailMessage: "Enter your email address.",
+    contactFormInvalidEmailMessage: "Enter a valid email address.",
+    contactFormRequiredMessageMessage: "Write your message.",
+    contactFormMinLengthMessageMessage: "The message must be at least 10 characters long.",
     footerEmail: "Email",
     backToTop: "Back to top",
   },
@@ -1365,6 +1392,29 @@ export default function Home() {
                 LinkedIn
               </Button>
             </Box>
+          </Box>
+
+          <Divider sx={{ borderColor: "rgba(255,255,255,0.08)", my: { xs: 4, md: 5 } }} />
+
+          <Box sx={{ maxWidth: 560 }}>
+            <ContactForm
+              recipientEmail="luiszrita@gmail.com"
+              labels={{
+                emailLabel: t.contactFormEmailLabel,
+                emailPlaceholder: t.contactFormEmailPlaceholder,
+                messageLabel: t.contactFormMessageLabel,
+                messagePlaceholder: t.contactFormMessagePlaceholder,
+                submitLabel: t.contactFormSubmitLabel,
+                submittingLabel: t.contactFormSubmittingLabel,
+                successMessage: t.contactFormSuccessMessage,
+                genericErrorMessage: t.contactFormGenericErrorMessage,
+                configMissingMessage: t.contactFormConfigMissingMessage,
+                requiredEmailMessage: t.contactFormRequiredEmailMessage,
+                invalidEmailMessage: t.contactFormInvalidEmailMessage,
+                requiredMessageMessage: t.contactFormRequiredMessageMessage,
+                minLengthMessageMessage: t.contactFormMinLengthMessageMessage,
+              }}
+            />
           </Box>
         </Paper>
       </Container>
