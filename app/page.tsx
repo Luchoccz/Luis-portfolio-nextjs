@@ -20,7 +20,6 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import PhoneOutlinedIcon from "@mui/icons-material/PhoneOutlined";
-import { FaPersonWalking } from "react-icons/fa6";
 import ProjectCarousel, { PROJECTS } from "@/components/ProjectCarousel";
 import type { IconType } from "react-icons";
 import {
@@ -28,6 +27,7 @@ import {
   SiFirebase,
   SiFramer,
   SiGraphql,
+  SiGsap,
   SiHtml5,
   SiJavascript,
   SiMongodb,
@@ -43,7 +43,7 @@ type Language = "es" | "en";
 
 const navItems = [
   { id: "home", es: "Inicio", en: "Home" },
-  { id: "about", es: "Sobre mi", en: "About" },
+  { id: "about", es: "Sobre mí", en: "About" },
   { id: "experience", es: "Experiencia", en: "Experience" },
   { id: "skills", es: "Habilidades", en: "Skills" },
   { id: "contact", es: "Contacto", en: "Contact" },
@@ -58,26 +58,26 @@ const copyByLanguage = {
     heroSummaryBefore: "Desarrollador Frontend con",
     heroSummaryAfter:
       "creando, manteniendo y optimizando interfaces web con foco en usabilidad, rendimiento y accesibilidad. Transformo ideas UX/UI en experiencias responsivas y escalables con React, Next.js y TypeScript.",
-    contactMe: "Contactame",
-    aboutTitle: "Sobre mi",
+    contactMe: "Contáctame",
+    aboutTitle: "Sobre mí",
     aboutSubtitle: "Desarrollador frontend enfocado en interfaces limpias y resultados medibles.",
     aboutText:
-      "Soy un profesional orientado al detalle, con fuerte equilibrio entre ejecución tecnica y vision UX. He construido y mantenido experiencias web modernas optimizando usabilidad, SEO, accesibilidad y velocidad de carga.",
+      "Soy un profesional orientado al detalle, con fuerte equilibrio entre ejecución técnica y visión UX. He construido y mantenido experiencias web modernas optimizando usabilidad, SEO, accesibilidad y velocidad de carga.",
     roleLabel: "Cargo",
     companyLabel: "Empresa",
     experienceLabel: "Experiencia",
-    educationLabel: "Educacion",
+    educationLabel: "Educación",
     experienceTitle: "Experiencia",
     currentRole: "Desarrollador Frontend",
     currentTime: "Diciembre 2020 - Actualidad · Caracas, Venezuela",
-    technologiesUsed: "Tecnologias y herramientas utilizadas",
+    technologiesUsed: "Tecnologías y herramientas utilizadas",
     projectsTitle: "Proyectos Destacados",
     projectsCta: "Ver Proyecto",
     projectsPrev: "Desplazar a la izquierda",
     projectsNext: "Desplazar a la derecha",
     skillsTitle: "Habilidades",
-    educationTitle: "Educacion",
-    degreeTitle: "Licenciado en Contaduria Publica",
+    educationTitle: "Educación",
+    degreeTitle: "Licenciado en Contaduría Pública",
     certificationTitle: "Cursos y certificaciones",
     contactSectionLabel: "Conectemos",
     contactSectionTitle: "¿Tienes un proyecto en mente? Hagámoslo realidad.",
@@ -136,7 +136,7 @@ const skillGroupsByLanguage = {
     },
     {
       title: "Rendimiento y UX",
-      items: ["SEO on-page", "Accesibilidad web", "Optimizacion de rendimiento", "Integracion UX/UI"],
+      items: ["SEO on-page", "Accesibilidad web", "Optimización de rendimiento", "Integración UX/UI"],
     },
   ],
   en: [
@@ -161,11 +161,11 @@ const skillGroupsByLanguage = {
 
 const experiencePointsByLanguage = {
   es: [
-    "Desarrollo y mantenimiento de interfaces web con estandares modernos de HTML, CSS y JavaScript.",
-    "Implementacion de mejoras UX/UI continuas en sitios de alto trafico para optimizar la experiencia del usuario.",
-    "Conversion de disenos complejos en interfaces responsivas y compatibles entre navegadores.",
-    "Optimizacion del rendimiento y velocidad de carga mejorando SEO y accesibilidad.",
-    "Colaboracion con equipos de diseno y producto para traducir requerimientos en soluciones digitales efectivas.",
+    "Desarrollo y mantenimiento de interfaces web con estándares modernos de HTML, CSS y JavaScript.",
+    "Implementación de mejoras UX/UI continuas en sitios de alto tráfico para optimizar la experiencia del usuario.",
+    "Conversión de diseños complejos en interfaces responsivas y compatibles entre navegadores.",
+    "Optimización del rendimiento y velocidad de carga mejorando SEO y accesibilidad.",
+    "Colaboración con equipos de diseño y producto para traducir requerimientos en soluciones digitales efectivas.",
   ],
   en: [
     "Developed and maintained core web interfaces using modern HTML, CSS, and JavaScript standards.",
@@ -184,15 +184,15 @@ const courseListByLanguage = {
     "Posicionamiento en buscadores (SEO) - Platzi",
     "Next.js 14 - Platzi",
     "React.js con TypeScript - Platzi",
-    "Next.js: Sitios estaticos - Platzi",
+    "Next.js: Sitios estáticos - Platzi",
     "Next.js con GraphQL - Platzi",
     "Next.js: Seguridad web con OWASP - Platzi",
     "Frameworks y Arquitecturas Frontend - Platzi",
-    "React.js: Navegacion con React Router - Platzi",
+    "React.js: Navegación con React Router - Platzi",
     "Vite.js - Platzi",
-    "Manipulacion del DOM - Platzi",
+    "Manipulación del DOM - Platzi",
     "ECMAScript 6+ - Platzi",
-    "Curso Practico de Next.js - Platzi",
+    "Curso Práctico de Next.js - Platzi",
   ],
   en: [
     "Low-Code Automations with n8n - Platzi (May 2026)",
@@ -227,7 +227,7 @@ const outerOrbitItems: OrbitItem[] = [
   { name: "Node.js", Icon: SiNodedotjs, color: "#22c55e", angle: 2 },
   { name: "MongoDB", Icon: SiMongodb, color: "#00cf66", angle: 56 },
   { name: "Firebase", Icon: SiFirebase, color: "#ff9f00", angle: 110 },
-  { name: "GSAP", Icon: FaPersonWalking, color: "#8af7af", angle: 156 },
+  { name: "GSAP", Icon: SiGsap, color: "#8af7af", angle: 156 },
   { name: "React", Icon: SiReact, color: "#6f7bff", angle: 208 },
 ];
 
@@ -247,6 +247,66 @@ const outerOrbitDuration = "46s";
 const innerOrbitDuration = "32s";
 const orbitAngleOffset = 90;
 const WORK_START_DATE = new Date(Date.UTC(2020, 11, 1));
+
+/**
+ * Tokens de diseño compartidos. Centralizan combinaciones de color que antes
+ * estaban repetidas y ligeramente distintas en cada sección (chips de
+ * tecnología, superficies de panel), para que el mismo tipo de elemento se
+ * vea siempre igual en toda la página.
+ */
+const surfacePanelSx = {
+  bgcolor: "rgba(18,21,29,0.9)",
+  border: "1px solid rgba(255,255,255,0.08)",
+} as const;
+
+const techChipSx = {
+  bgcolor: "rgba(122,146,255,0.14)",
+  color: "#dfe6ff",
+  border: "1px solid rgba(122,146,255,0.3)",
+  fontWeight: 600,
+} as const;
+
+/**
+ * High-contrast keyboard-focus ring. MUI's Button/IconButton/Link
+ * components reset `outline: 0` on their root and manage their own
+ * `Mui-focusVisible` class internally, at a stylesheet-insertion order
+ * a plain global CSS rule can't reliably win against. `sx` is the one
+ * override channel MUI itself guarantees wins, so the ring lives here
+ * and gets spread onto every focusable element's `sx`.
+ */
+const focusRingSx = {
+  "&.Mui-focusVisible": {
+    boxShadow: "0 0 0 2px #05070d, 0 0 0 4.5px #67e8ff",
+  },
+} as const;
+
+const primaryButtonHoverActiveSx = {
+  transition: "transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease, background-color 0.2s ease",
+  "&:hover": {
+    filter: "brightness(0.96)",
+    transform: "translateY(-1px)",
+    boxShadow: "0 10px 24px rgba(6, 10, 26, 0.4)",
+  },
+  "&:active": {
+    transform: "translateY(0) scale(0.98)",
+    boxShadow: "0 4px 12px rgba(6, 10, 26, 0.32)",
+  },
+  ...focusRingSx,
+} as const;
+
+const outlinedButtonHoverActiveSx = {
+  transition: "transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease",
+  "&:hover": {
+    borderColor: "rgba(255,255,255,0.42)",
+    bgcolor: "rgba(255,255,255,0.06)",
+    transform: "translateY(-1px)",
+  },
+  "&:active": {
+    transform: "translateY(0) scale(0.98)",
+    bgcolor: "rgba(255,255,255,0.09)",
+  },
+  ...focusRingSx,
+} as const;
 
 const calculateExperienceYears = (startDate: Date, currentDate = new Date()) => {
   const totalMonths =
@@ -325,7 +385,7 @@ export default function Home() {
   const yearsOfExperience = calculateExperienceYears(WORK_START_DATE);
   const yearsLabel =
     language === "es"
-      ? `${formatExperienceYears(yearsOfExperience, language)} anos de experiencia`
+      ? `${formatExperienceYears(yearsOfExperience, language)} años de experiencia`
       : `${formatExperienceYears(yearsOfExperience, language)} years of experience`;
 
   return (
@@ -436,6 +496,7 @@ export default function Home() {
                       opacity: 1,
                       bgcolor: isHeaderCompact ? "rgba(255,255,255,0.08)" : "transparent",
                     },
+                    ...focusRingSx,
                   }}
                 >
                   {language === "es" ? item.es : item.en}
@@ -524,6 +585,10 @@ export default function Home() {
                       border: "1px solid",
                       borderColor: language === "es" ? "rgba(177,194,255,0.36)" : "transparent",
                       transition: "all 0.2s ease",
+                      "&:hover": {
+                        bgcolor: language === "es" ? "rgba(104,128,255,0.42)" : "rgba(255,255,255,0.08)",
+                      },
+                      ...focusRingSx,
                     }}
                   >
                     ES
@@ -545,6 +610,10 @@ export default function Home() {
                       border: "1px solid",
                       borderColor: language === "en" ? "rgba(177,194,255,0.36)" : "transparent",
                       transition: "all 0.2s ease",
+                      "&:hover": {
+                        bgcolor: language === "en" ? "rgba(104,128,255,0.42)" : "rgba(255,255,255,0.08)",
+                      },
+                      ...focusRingSx,
                     }}
                   >
                     EN
@@ -559,8 +628,8 @@ export default function Home() {
                   startIcon={<DownloadRoundedIcon />}
                   sx={{
                     borderRadius: 999,
-                    background: "linear-gradient(135deg, #1c2347 0%, #24316b 52%, #2d3f8b 100%)",
-                    color: "#e9efff",
+                    bgcolor: "rgba(22, 28, 52, 0.92)",
+                    color: "#eaf0ff",
                     textTransform: "none",
                     px: isHeaderCompact ? 1.1 : 1.45,
                     py: isHeaderCompact ? 0.45 : 0.6,
@@ -569,9 +638,8 @@ export default function Home() {
                     fontWeight: 700,
                     fontSize: isHeaderCompact ? 11.5 : 12.5,
                     whiteSpace: "nowrap",
-                    boxShadow: "0 8px 18px rgba(18, 28, 74, 0.5)",
-                    border: "1px solid rgba(145, 168, 255, 0.28)",
-                    transition: "all 0.3s ease",
+                    border: "1px solid rgba(145, 168, 255, 0.34)",
+                    ...primaryButtonHoverActiveSx,
                     "& .MuiButton-startIcon": {
                       mr: isHeaderCompact ? 0.25 : 0.45,
                       "& svg": {
@@ -623,6 +691,7 @@ export default function Home() {
                         bgcolor: "rgba(90,112,196,0.22)",
                         borderColor: "rgba(170,191,255,0.26)",
                       },
+                      ...focusRingSx,
                     }}
                   >
                     {language === "es" ? item.es : item.en}
@@ -673,6 +742,7 @@ export default function Home() {
                     "&:hover": {
                       bgcolor: language === "es" ? "rgba(104,128,255,0.42)" : "rgba(255,255,255,0.08)",
                     },
+                    ...focusRingSx,
                   }}
                 >
                   ES
@@ -697,6 +767,7 @@ export default function Home() {
                     "&:hover": {
                       bgcolor: language === "en" ? "rgba(104,128,255,0.42)" : "rgba(255,255,255,0.08)",
                     },
+                    ...focusRingSx,
                   }}
                 >
                   EN
@@ -711,8 +782,8 @@ export default function Home() {
                 startIcon={<DownloadRoundedIcon />}
                 sx={{
                   borderRadius: 999,
-                  background: "linear-gradient(135deg, #1c2347 0%, #24316b 52%, #2d3f8b 100%)",
-                  color: "#e9efff",
+                  bgcolor: "rgba(22, 28, 52, 0.92)",
+                  color: "#eaf0ff",
                   textTransform: "none",
                   px: { xs: 1.6, sm: 2.1, md: isHeaderCompact ? 1.5 : 2.4 },
                   py: { xs: 0.62, sm: 0.8, md: isHeaderCompact ? 0.55 : 0.9 },
@@ -722,31 +793,14 @@ export default function Home() {
                   fontSize: { xs: 13, sm: 15, md: isHeaderCompact ? 12.5 : 16 },
                   whiteSpace: "nowrap",
                   flexShrink: 0,
-                  boxShadow: "0 12px 24px rgba(18, 28, 74, 0.52)",
-                  border: "1px solid rgba(145, 168, 255, 0.28)",
-                  position: "relative",
-                  overflow: "hidden",
-                  transition: "transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease, border-color 0.2s ease",
+                  border: "1px solid rgba(145, 168, 255, 0.34)",
                   "& .MuiButton-startIcon": {
                     mr: { xs: 0.45, sm: 0.9 },
                     "& svg": {
                       fontSize: { xs: 17, sm: 21, md: 22 },
                     },
                   },
-                  "&::before": {
-                    content: '\"\"',
-                    position: "absolute",
-                    inset: 0,
-                    background: "linear-gradient(120deg, transparent 20%, rgba(188,210,255,0.18) 48%, transparent 76%)",
-                    opacity: 0.55,
-                    transform: "translateX(-25%)",
-                  },
-                  "&:hover": {
-                    transform: "translateY(-1px)",
-                    boxShadow: "0 18px 34px rgba(20, 34, 92, 0.62)",
-                    filter: "brightness(1.06)",
-                    borderColor: "rgba(170, 192, 255, 0.38)",
-                  },
+                  ...primaryButtonHoverActiveSx,
                 }}
               >
                 {isHeaderCompact ? (
@@ -815,10 +869,39 @@ export default function Home() {
             </Typography>
 
             <Box sx={{ mt: 4, display: "flex", gap: 2, flexDirection: { xs: "row", sm: "row" }, justifyContent: { xs: "center", md: "flex-start" }, flexWrap: "wrap" }}>
-              <Button variant="contained" href="mailto:luiszrita@gmail.com" sx={{ borderRadius: 999, bgcolor: "#f2f5f9", color: "#0b0c10", px: 3, py: 1.3, textTransform: "none", fontWeight: 700, minWidth: { xs: 160, sm: "auto" } }}>
+              <Button
+                variant="contained"
+                href="mailto:luiszrita@gmail.com"
+                sx={{
+                  borderRadius: 999,
+                  bgcolor: "#f2f5f9",
+                  color: "#0b0c10",
+                  px: 3,
+                  py: 1.3,
+                  textTransform: "none",
+                  fontWeight: 700,
+                  minWidth: { xs: 160, sm: "auto" },
+                  ...primaryButtonHoverActiveSx,
+                }}
+              >
                 {t.contactMe}
               </Button>
-              <Button variant="outlined" href="https://www.linkedin.com/in/luis-carlos-colmenares-zurita-18557413a/" target="_blank" rel="noreferrer" sx={{ borderRadius: 999, borderColor: "rgba(255,255,255,0.2)", color: "#fff", px: 3, py: 1.3, textTransform: "none", minWidth: { xs: 160, sm: "auto" } }}>
+              <Button
+                variant="outlined"
+                href="https://www.linkedin.com/in/luis-carlos-colmenares-zurita-18557413a/"
+                target="_blank"
+                rel="noreferrer"
+                sx={{
+                  borderRadius: 999,
+                  borderColor: "rgba(255,255,255,0.2)",
+                  color: "#fff",
+                  px: 3,
+                  py: 1.3,
+                  textTransform: "none",
+                  minWidth: { xs: 160, sm: "auto" },
+                  ...outlinedButtonHoverActiveSx,
+                }}
+              >
                 LinkedIn
               </Button>
             </Box>
@@ -831,7 +914,7 @@ export default function Home() {
               <Link
                 href="mailto:luiszrita@gmail.com"
                 underline="none"
-                sx={{ display: "flex", alignItems: "center", gap: 1, color: "inherit", "&:hover": { color: "#f5f7fa" } }}
+                sx={{ display: "flex", alignItems: "center", gap: 1, color: "inherit", "&:hover": { color: "#f5f7fa" }, ...focusRingSx }}
               >
                 <EmailOutlinedIcon sx={{ fontSize: 18, color: "#a9b6cf" }} />
                 <Typography variant="body2">luiszrita@gmail.com</Typography>
@@ -839,7 +922,7 @@ export default function Home() {
               <Link
                 href="tel:+584241070060"
                 underline="none"
-                sx={{ display: "flex", alignItems: "center", gap: 1, color: "inherit", "&:hover": { color: "#f5f7fa" } }}
+                sx={{ display: "flex", alignItems: "center", gap: 1, color: "inherit", "&:hover": { color: "#f5f7fa" }, ...focusRingSx }}
               >
                 <PhoneOutlinedIcon sx={{ fontSize: 18, color: "#a9b6cf" }} />
                 <Typography variant="body2">+58 424-1070060</Typography>
@@ -1113,7 +1196,7 @@ export default function Home() {
           </Box>
 
           <Box sx={{ flex: 1 }}>
-            <Paper sx={{ p: { xs: 2.5, md: 3 }, borderRadius: 4, bgcolor: "rgba(18,21,29,0.9)", border: "1px solid rgba(255,255,255,0.08)" }}>
+            <Paper sx={{ p: { xs: 2.5, md: 3 }, borderRadius: 4, ...surfacePanelSx }}>
               <Box sx={{ display: "flex", flexDirection: "column", gap: 2.5 }}>
                 <Box>
                   <Typography variant="overline" sx={{ color: "#8fa1bf", letterSpacing: 1.5 }}>{t.roleLabel}</Typography>
@@ -1142,7 +1225,7 @@ export default function Home() {
           {t.experienceTitle}
         </Typography>
 
-        <Paper sx={{ p: { xs: 2.5, md: 4 }, borderRadius: 4, bgcolor: "rgba(18,21,29,0.9)", border: "1px solid rgba(255,255,255,0.08)" }}>
+        <Paper sx={{ p: { xs: 2.5, md: 4 }, borderRadius: 4, ...surfacePanelSx }}>
           <Box sx={{ display: "flex", flexDirection: { xs: "column", md: "row" }, justifyContent: "space-between", gap: 2, mb: 3 }}>
             <Box>
               <Typography variant="h5" sx={{ fontWeight: 700, color: titleColorPrimary }}>{t.currentRole}</Typography>
@@ -1180,7 +1263,7 @@ export default function Home() {
               "Jira",
               "Adobe",
             ].map((tool) => (
-              <Chip key={tool} label={tool} sx={{ bgcolor: "rgba(255,255,255,0.04)", color: "#edf2ff", border: "1px solid rgba(255,255,255,0.08)" }} />
+              <Chip key={tool} label={tool} sx={techChipSx} />
             ))}
           </Box>
         </Paper>
@@ -1202,13 +1285,13 @@ export default function Home() {
         <Box sx={{ display: "flex", gap: 3, flexWrap: "wrap" }}>
           {skillGroups.map((group) => (
             <Box key={group.title} sx={{ flex: "1 1 280px", minWidth: 0 }}>
-              <Paper sx={{ p: 3, borderRadius: 4, height: "100%", bgcolor: "rgba(18,21,29,0.9)", border: "1px solid rgba(255,255,255,0.08)" }}>
+              <Paper sx={{ p: 3, borderRadius: 4, height: "100%", ...surfacePanelSx }}>
                 <Typography variant="h6" sx={{ fontWeight: 700, mb: 2, color: titleColorPrimary }}>
                   {group.title}
                 </Typography>
                 <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
                   {group.items.map((item) => (
-                    <Chip key={item} label={item} sx={{ bgcolor: "rgba(122,146,255,0.12)", color: "#dfe6ff", border: "1px solid rgba(122,146,255,0.2)" }} />
+                    <Chip key={item} label={item} sx={techChipSx} />
                   ))}
                 </Box>
               </Paper>
@@ -1220,7 +1303,7 @@ export default function Home() {
       <Container maxWidth="lg" sx={{ py: { xs: 6, md: 8 } }}>
         <Box sx={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
           <Box sx={{ flex: "1 1 280px" }}>
-            <Paper sx={{ p: 3, borderRadius: 4, bgcolor: "rgba(18,21,29,0.9)", border: "1px solid rgba(255,255,255,0.08)" }}>
+            <Paper sx={{ p: 3, borderRadius: 4, ...surfacePanelSx }}>
               <Typography variant="h5" sx={{ fontWeight: 700, mb: 2, color: titleColorPrimary }}>{t.educationTitle}</Typography>
               <Typography variant="body1" sx={{ color: "#f4f7fb", fontWeight: 600 }}>{t.degreeTitle}</Typography>
               <Typography variant="body2" sx={{ color: "#a7b7d0", mt: 0.5 }}>Universidad Santa Maria · 2017</Typography>
@@ -1228,7 +1311,7 @@ export default function Home() {
           </Box>
 
           <Box sx={{ flex: "1 1 280px" }}>
-            <Paper sx={{ p: 3, borderRadius: 4, bgcolor: "rgba(18,21,29,0.9)", border: "1px solid rgba(255,255,255,0.08)" }}>
+            <Paper sx={{ p: 3, borderRadius: 4, ...surfacePanelSx }}>
               <Typography variant="h5" sx={{ fontWeight: 700, mb: 2, color: titleColorPrimary }}>{t.certificationTitle}</Typography>
               <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
                 {courseList.slice(0, 8).map((course) => (
@@ -1248,10 +1331,37 @@ export default function Home() {
               <Typography variant="h4" sx={{ fontWeight: 800, mt: 1, color: titleColorPrimary }}>{t.contactSectionTitle}</Typography>
             </Box>
             <Box sx={{ display: "flex", gap: 2, flexDirection: { xs: "column", sm: "row" } }}>
-              <Button startIcon={<EmailOutlinedIcon />} href="mailto:luiszrita@gmail.com" sx={{ borderRadius: 999, bgcolor: "#f3f6fb", color: "#0b0c10", px: 2.5, py: 1.2, textTransform: "none", fontWeight: 700 }}>
+              <Button
+                startIcon={<EmailOutlinedIcon />}
+                href="mailto:luiszrita@gmail.com"
+                sx={{
+                  borderRadius: 999,
+                  bgcolor: "#f3f6fb",
+                  color: "#0b0c10",
+                  px: 2.5,
+                  py: 1.2,
+                  textTransform: "none",
+                  fontWeight: 700,
+                  ...primaryButtonHoverActiveSx,
+                }}
+              >
                 Email
               </Button>
-              <Button startIcon={<LinkedInIcon />} href="https://www.linkedin.com/in/luis-carlos-colmenares-zurita-18557413a/" target="_blank" rel="noreferrer" sx={{ borderRadius: 999, borderColor: "rgba(255,255,255,0.2)", color: "#fff", px: 2.5, py: 1.2, textTransform: "none" }}>
+              <Button
+                startIcon={<LinkedInIcon />}
+                href="https://www.linkedin.com/in/luis-carlos-colmenares-zurita-18557413a/"
+                target="_blank"
+                rel="noreferrer"
+                sx={{
+                  borderRadius: 999,
+                  borderColor: "rgba(255,255,255,0.2)",
+                  color: "#fff",
+                  px: 2.5,
+                  py: 1.2,
+                  textTransform: "none",
+                  ...outlinedButtonHoverActiveSx,
+                }}
+              >
                 LinkedIn
               </Button>
             </Box>
@@ -1286,6 +1396,10 @@ export default function Home() {
             boxShadow: "0 16px 34px rgba(10, 19, 50, 0.58)",
             transform: "translateY(-2px) scale(1.04)",
           },
+          "&:active": {
+            transform: "translateY(0) scale(0.96)",
+          },
+          ...focusRingSx,
         }}
       >
         <ArrowDownwardRoundedIcon sx={{ fontSize: 24, transform: "rotate(180deg)" }} />
@@ -1296,11 +1410,11 @@ export default function Home() {
           <Box sx={{ display: "flex", flexDirection: { xs: "column", sm: "row" }, justifyContent: "space-between", alignItems: "center", gap: 1 }}>
             <Typography variant="body2" sx={{ color: "#a7b7d0" }}>© 2026 Luis Colmenares</Typography>
             <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
-              <Link href="mailto:luiszrita@gmail.com" underline="none" sx={{ color: "#dfe3ea" }}>{t.footerEmail}</Link>
-              <Link href="https://github.com" target="_blank" rel="noreferrer" underline="none" sx={{ color: "#dfe3ea" }}>
+              <Link href="mailto:luiszrita@gmail.com" underline="none" sx={{ color: "#dfe3ea", ...focusRingSx }}>{t.footerEmail}</Link>
+              <Link href="https://github.com" target="_blank" rel="noreferrer" underline="none" sx={{ color: "#dfe3ea", ...focusRingSx }}>
                 <GitHubIcon sx={{ fontSize: 18, verticalAlign: "middle" }} />
               </Link>
-              <Link href="https://www.linkedin.com/in/luis-carlos-colmenares-zurita-18557413a/" target="_blank" rel="noreferrer" underline="none" sx={{ color: "#dfe3ea" }}>
+              <Link href="https://www.linkedin.com/in/luis-carlos-colmenares-zurita-18557413a/" target="_blank" rel="noreferrer" underline="none" sx={{ color: "#dfe3ea", ...focusRingSx }}>
                 <LinkedInIcon sx={{ fontSize: 18, verticalAlign: "middle" }} />
               </Link>
             </Box>

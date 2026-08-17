@@ -18,10 +18,20 @@ body {
     radial-gradient(circle at 50% 92%, rgba(33, 70, 168, 0.1), transparent 54%),
     linear-gradient(160deg, #030306 0%, #06070d 42%, #090f1f 100%);
   color: #f5f7fa;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), "Segoe UI", Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   position: relative;
+}
+
+/* MUI ships its components with a hardcoded Roboto-first font stack.
+   Force the same technical sans used by the rest of the page so
+   headings, buttons and chips share one consistent typeface. */
+.MuiTypography-root,
+.MuiButtonBase-root,
+.MuiChip-root,
+.MuiInputBase-root {
+  font-family: var(--font-inter), "Segoe UI", Arial, Helvetica, sans-serif !important;
 }
 
 .ambient-background {
@@ -136,6 +146,18 @@ input,
 textarea,
 select {
   font: inherit;
+}
+
+/* High-contrast keyboard focus indicator for plain, non-MUI elements.
+   MUI's Button/IconButton/Link/Chip components manage their own
+   `Mui-focusVisible` class and reset `outline: 0` on the root at a
+   specificity/insertion order that a global stylesheet can't reliably
+   win against — so those get the same ring applied via `sx` instead
+   (see `focusRingSx` in app/page.tsx and components/ProjectCarousel.tsx). */
+:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #05070d, 0 0 0 4.5px #67e8ff;
+  border-radius: 6px;
 }
 
 @keyframes orbit-spin {

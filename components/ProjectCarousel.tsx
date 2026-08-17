@@ -16,6 +16,19 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 /**
+ * High-contrast keyboard-focus ring. MUI's Button/IconButton reset
+ * `outline: 0` on their root and manage their own `Mui-focusVisible`
+ * class internally, at a stylesheet-insertion order a plain global CSS
+ * rule can't reliably win against — `sx` is the one override channel
+ * MUI itself guarantees wins, so the ring lives here.
+ */
+const focusRingSx = {
+  '&.Mui-focusVisible': {
+    boxShadow: '0 0 0 2px #05070d, 0 0 0 4.5px #67e8ff',
+  },
+} as const;
+
+/**
  * Modelo de datos de un proyecto destacado del portafolio.
  */
 export interface Project {
@@ -147,6 +160,7 @@ export default function ProjectCarousel({
               border: '1px solid rgba(255,255,255,0.14)',
               display: { xs: 'none', sm: 'inline-flex' },
               '&:hover': { bgcolor: 'rgba(255,255,255,0.06)' },
+              ...focusRingSx,
             }}
           >
             <ArrowBackIosNewIcon fontSize="small" />
@@ -159,6 +173,7 @@ export default function ProjectCarousel({
               border: '1px solid rgba(255,255,255,0.14)',
               display: { xs: 'none', sm: 'inline-flex' },
               '&:hover': { bgcolor: 'rgba(255,255,255,0.06)' },
+              ...focusRingSx,
             }}
           >
             <ArrowForwardIosIcon fontSize="small" />
@@ -252,9 +267,10 @@ function ProjectCard({ project, ctaLabel }: { project: Project; ctaLabel: string
               label={tech}
               size="small"
               sx={{
-                bgcolor: 'rgba(122,146,255,0.12)',
+                bgcolor: 'rgba(122,146,255,0.14)',
                 color: '#dfe6ff',
-                border: '1px solid rgba(122,146,255,0.2)',
+                border: '1px solid rgba(122,146,255,0.3)',
+                fontWeight: 600,
               }}
             />
           ))}
@@ -293,10 +309,17 @@ function ProjectCard({ project, ctaLabel }: { project: Project; ctaLabel: string
             color: '#fff',
             textTransform: 'none',
             fontWeight: 600,
+            transition: 'transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease',
             '&:hover': {
               borderColor: 'rgba(255,255,255,0.4)',
               bgcolor: 'rgba(255,255,255,0.06)',
+              transform: 'translateY(-1px)',
             },
+            '&:active': {
+              transform: 'translateY(0) scale(0.97)',
+              bgcolor: 'rgba(255,255,255,0.09)',
+            },
+            ...focusRingSx,
           }}
         >
           {ctaLabel}
