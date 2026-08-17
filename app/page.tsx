@@ -21,6 +21,7 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import PhoneOutlinedIcon from "@mui/icons-material/PhoneOutlined";
 import { FaPersonWalking } from "react-icons/fa6";
+import ProjectCarousel, { PROJECTS } from "@/components/ProjectCarousel";
 import type { IconType } from "react-icons";
 import {
   SiCss,
@@ -70,6 +71,10 @@ const copyByLanguage = {
     currentRole: "Desarrollador Frontend",
     currentTime: "Diciembre 2020 - Actualidad · Caracas, Venezuela",
     technologiesUsed: "Tecnologias y herramientas utilizadas",
+    projectsTitle: "Proyectos Destacados",
+    projectsCta: "Ver Proyecto",
+    projectsPrev: "Desplazar a la izquierda",
+    projectsNext: "Desplazar a la derecha",
     skillsTitle: "Habilidades",
     educationTitle: "Educacion",
     degreeTitle: "Licenciado en Contaduria Publica",
@@ -100,6 +105,10 @@ const copyByLanguage = {
     currentRole: "Frontend Developer",
     currentTime: "December 2020 - Present · Caracas, Venezuela",
     technologiesUsed: "Technologies & tools used",
+    projectsTitle: "Featured Projects",
+    projectsCta: "View Project",
+    projectsPrev: "Scroll left",
+    projectsNext: "Scroll right",
     skillsTitle: "Skills",
     educationTitle: "Education",
     degreeTitle: "Bachelor\'s Degree in Public Accounting",
@@ -1175,6 +1184,14 @@ export default function Home() {
             ))}
           </Box>
         </Paper>
+
+        <ProjectCarousel
+          projects={PROJECTS}
+          title={t.projectsTitle}
+          ctaLabel={t.projectsCta}
+          prevLabel={t.projectsPrev}
+          nextLabel={t.projectsNext}
+        />
       </Container>
 
       <Container id="skills" maxWidth="lg" sx={{ py: { xs: 6, md: 8 } }}>
