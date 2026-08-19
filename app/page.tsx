@@ -23,6 +23,20 @@ import PhoneOutlinedIcon from "@mui/icons-material/PhoneOutlined";
 import ProjectCarousel, { PROJECTS } from "@/components/ProjectCarousel";
 import ContactForm from "@/components/ContactForm";
 import type { IconType } from "react-icons";
+import type { Language } from "@/lib/experience";
+import { calculateExperienceDuration, formatExperienceDuration } from "@/lib/experience";
+import {
+  WORK_START_DATE,
+  currentCompany,
+  educationInstitution,
+  experienceTechnologies,
+  experiencePointsByLanguage,
+  courseListByLanguage,
+  graduationYear,
+  personalInfo,
+  skillGroupsByLanguage,
+} from "@/lib/cvContent";
+import { generateCvPdf } from "@/lib/generateCvPdf";
 import {
   SiCss,
   SiFirebase,
@@ -39,8 +53,6 @@ import {
   SiShadcnui,
   SiTailwindcss,
 } from "react-icons/si";
-
-type Language = "es" | "en";
 
 const navItems = [
   { id: "home", es: "Inicio", en: "Home" },
@@ -149,99 +161,6 @@ const copyByLanguage = {
   },
 } satisfies Record<Language, Record<string, string>>;
 
-const skillGroupsByLanguage = {
-  es: [
-    {
-      title: "Frameworks frontend",
-      items: ["React", "Next.js", "JavaScript (ES6+)", "TypeScript"],
-    },
-    {
-      title: "Estilos y marcado",
-      items: ["HTML5", "CSS3", "SASS", "UI responsiva"],
-    },
-    {
-      title: "Herramientas y flujo",
-      items: ["Git", "GitHub", "Bitbucket", "Jira", "Figma", "Adobe"],
-    },
-    {
-      title: "Rendimiento y UX",
-      items: ["SEO on-page", "Accesibilidad web", "Optimización de rendimiento", "Integración UX/UI"],
-    },
-  ],
-  en: [
-    {
-      title: "Frontend frameworks",
-      items: ["React", "Next.js", "JavaScript (ES6+)", "TypeScript"],
-    },
-    {
-      title: "Styling & markup",
-      items: ["HTML5", "CSS3", "SASS", "Responsive UI"],
-    },
-    {
-      title: "Tools & workflow",
-      items: ["Git", "GitHub", "Bitbucket", "Jira", "Figma", "Adobe"],
-    },
-    {
-      title: "Performance & UX",
-      items: ["On-page SEO", "Web accessibility", "Performance optimization", "UX/UI integration"],
-    },
-  ],
-} satisfies Record<Language, Array<{ title: string; items: string[] }>>;
-
-const experiencePointsByLanguage = {
-  es: [
-    "Desarrollo y mantenimiento de interfaces web con estándares modernos de HTML, CSS y JavaScript.",
-    "Implementación de mejoras UX/UI continuas en sitios de alto tráfico para optimizar la experiencia del usuario.",
-    "Conversión de diseños complejos en interfaces responsivas y compatibles entre navegadores.",
-    "Optimización del rendimiento y velocidad de carga mejorando SEO y accesibilidad.",
-    "Colaboración con equipos de diseño y producto para traducir requerimientos en soluciones digitales efectivas.",
-  ],
-  en: [
-    "Developed and maintained core web interfaces using modern HTML, CSS, and JavaScript standards.",
-    "Implemented continuous UX/UI enhancements across client-facing sites to optimize overall user experience.",
-    "Converted complex design mockups into responsive, cross-browser interfaces.",
-    "Optimized application performance and page speed while improving SEO and accessibility.",
-    "Collaborated with design and product teams to translate requirements into effective digital experiences.",
-  ],
-} satisfies Record<Language, string[]>;
-
-const courseListByLanguage = {
-  es: [
-    "Automatizaciones Low-Code con n8n - Platzi (mayo 2026)",
-    "Fundamentos de Python - Platzi",
-    "Fundamentos de SASS - Platzi",
-    "Posicionamiento en buscadores (SEO) - Platzi",
-    "Next.js 14 - Platzi",
-    "React.js con TypeScript - Platzi",
-    "Next.js: Sitios estáticos - Platzi",
-    "Next.js con GraphQL - Platzi",
-    "Next.js: Seguridad web con OWASP - Platzi",
-    "Frameworks y Arquitecturas Frontend - Platzi",
-    "React.js: Navegación con React Router - Platzi",
-    "Vite.js - Platzi",
-    "Manipulación del DOM - Platzi",
-    "ECMAScript 6+ - Platzi",
-    "Curso Práctico de Next.js - Platzi",
-  ],
-  en: [
-    "Low-Code Automations with n8n - Platzi (May 2026)",
-    "Python Fundamentals - Platzi",
-    "SASS Fundamentals - Platzi",
-    "Search Engine Optimization (SEO) - Platzi",
-    "Next.js 14 - Platzi",
-    "React.js with TypeScript - Platzi",
-    "Next.js: Static Sites - Platzi",
-    "Next.js with GraphQL - Platzi",
-    "Next.js: Web Security with OWASP - Platzi",
-    "Frontend Frameworks & Architectures - Platzi",
-    "React.js: Navigation with React Router - Platzi",
-    "Vite.js - Platzi",
-    "DOM Manipulation - Platzi",
-    "ECMAScript 6+ - Platzi",
-    "Practical Next.js Course - Platzi",
-  ],
-} satisfies Record<Language, string[]>;
-
 type OrbitItem = {
   name: string;
   angle: number;
@@ -275,7 +194,6 @@ const titleColorAccent = "#cfdcff";
 const outerOrbitDuration = "46s";
 const innerOrbitDuration = "32s";
 const orbitAngleOffset = 90;
-const WORK_START_DATE = new Date(Date.UTC(2020, 11, 1));
 
 /**
  * Tokens de diseño compartidos. Centralizan combinaciones de color que antes
@@ -337,24 +255,6 @@ const outlinedButtonHoverActiveSx = {
   ...focusRingSx,
 } as const;
 
-const calculateExperienceYears = (startDate: Date, currentDate = new Date()) => {
-  const totalMonths =
-    (currentDate.getUTCFullYear() - startDate.getUTCFullYear()) * 12 +
-    (currentDate.getUTCMonth() - startDate.getUTCMonth()) +
-    (currentDate.getUTCDate() - startDate.getUTCDate()) / 30.4375;
-
-  const years = totalMonths / 12;
-  return Math.max(0, Math.round(years * 10) / 10);
-};
-
-const formatExperienceYears = (years: number, language: Language) => {
-  const hasDecimals = years % 1 !== 0;
-  return new Intl.NumberFormat(language === "es" ? "es-ES" : "en-US", {
-    minimumFractionDigits: hasDecimals ? 1 : 0,
-    maximumFractionDigits: 1,
-  }).format(years);
-};
-
 const getOrbitPosition = (angle: number) => {
   const rad = ((angle + orbitAngleOffset) * Math.PI) / 180;
   return {
@@ -411,11 +311,50 @@ export default function Home() {
   const skillGroups = skillGroupsByLanguage[language];
   const experiencePoints = experiencePointsByLanguage[language];
   const courseList = courseListByLanguage[language];
-  const yearsOfExperience = calculateExperienceYears(WORK_START_DATE);
+  const experienceDuration = calculateExperienceDuration(WORK_START_DATE);
+  const experienceDurationLabel = formatExperienceDuration(experienceDuration, language);
   const yearsLabel =
     language === "es"
-      ? `${formatExperienceYears(yearsOfExperience, language)} años de experiencia`
-      : `${formatExperienceYears(yearsOfExperience, language)} years of experience`;
+      ? `${experienceDurationLabel} de experiencia`
+      : `${experienceDurationLabel} of experience`;
+
+  const handleDownloadCv = () => {
+    generateCvPdf({
+      language,
+      fileName:
+        language === "es"
+          ? "CV Luis Colmenares (ES).pdf"
+          : "Luis Colmenares (EN).pdf",
+      name: personalInfo.name,
+      role: t.role,
+      location: personalInfo.location,
+      email: personalInfo.email,
+      phone: personalInfo.phone,
+      linkedin: personalInfo.linkedin,
+      summary: `${t.heroSummaryBefore} ${yearsLabel} ${t.heroSummaryAfter}`,
+      sectionLabels: {
+        profile: t.aboutTitle,
+        experience: t.experienceTitle,
+        education: t.educationTitle,
+        skills: t.skillsTitle,
+        certifications: t.certificationTitle,
+        technologies: t.technologiesUsed,
+      },
+      experience: {
+        role: t.currentRole,
+        company: currentCompany,
+        period: t.currentTime,
+        points: experiencePoints,
+        technologies: experienceTechnologies,
+      },
+      education: {
+        degree: t.degreeTitle,
+        institution: `${educationInstitution} · ${graduationYear}`,
+      },
+      skillGroups,
+      courses: courseList,
+    });
+  };
 
   return (
     <Box sx={{ color: "#f5f7fa", minHeight: "100vh" }}>
@@ -650,9 +589,7 @@ export default function Home() {
                 </Box>
 
                 <Button
-                  component="a"
-                  href="/docs/CV%20Luis%20Colmenare%20Developer.pdf"
-                  download="CV Luis Colmenare Developer.pdf"
+                  onClick={handleDownloadCv}
                   variant="contained"
                   startIcon={<DownloadRoundedIcon />}
                   sx={{
@@ -804,9 +741,7 @@ export default function Home() {
               </Box>
 
               <Button
-                component="a"
-                href="/docs/CV%20Luis%20Colmenare%20Developer.pdf"
-                download="CV Luis Colmenare Developer.pdf"
+                onClick={handleDownloadCv}
                 variant="contained"
                 startIcon={<DownloadRoundedIcon />}
                 sx={{
@@ -1280,18 +1215,7 @@ export default function Home() {
             {t.technologiesUsed}
           </Typography>
           <Box sx={{ mt: 1.5, display: "flex", alignItems: "center", gap: 1, flexWrap: "wrap" }}>
-            {[
-              "React",
-              "Next.js",
-              "JavaScript",
-              "HTML5",
-              "CSS3",
-              "Figma",
-              "Git",
-              "Bitbucket",
-              "Jira",
-              "Adobe",
-            ].map((tool) => (
+            {experienceTechnologies.map((tool) => (
               <Chip key={tool} label={tool} sx={techChipSx} />
             ))}
           </Box>
@@ -1463,7 +1387,7 @@ export default function Home() {
             <Typography variant="body2" sx={{ color: "#a7b7d0" }}>© 2026 Luis Colmenares</Typography>
             <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
               <Link href="mailto:luiszrita@gmail.com" underline="none" sx={{ color: "#dfe3ea", ...focusRingSx }}>{t.footerEmail}</Link>
-              <Link href="https://github.com" target="_blank" rel="noreferrer" underline="none" sx={{ color: "#dfe3ea", ...focusRingSx }}>
+              <Link href="https://github.com/Luchoccz" target="_blank" rel="noreferrer" underline="none" sx={{ color: "#dfe3ea", ...focusRingSx }}>
                 <GitHubIcon sx={{ fontSize: 18, verticalAlign: "middle" }} />
               </Link>
               <Link href="https://www.linkedin.com/in/luis-carlos-colmenares-zurita-18557413a/" target="_blank" rel="noreferrer" underline="none" sx={{ color: "#dfe3ea", ...focusRingSx }}>
