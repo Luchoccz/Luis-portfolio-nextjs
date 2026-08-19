@@ -19,6 +19,7 @@ export const personalInfo = {
 };
 
 export const currentCompany = "Grupo Venemergencia";
+export const freelanceCompany = "INHRR-OPS";
 export const educationInstitution = "Universidad Santa Maria";
 export const graduationYear = "2017";
 
@@ -26,6 +27,7 @@ export const experienceTechnologies = [
   "React",
   "Next.js",
   "JavaScript",
+  "TypeScript",
   "HTML5",
   "CSS3",
   "Figma",
@@ -33,6 +35,18 @@ export const experienceTechnologies = [
   "Bitbucket",
   "Jira",
   "Adobe",
+];
+
+export const freelanceExperienceTechnologies = [
+  "React",
+  "Next.js",
+  "JavaScript",
+  "TypeScript",
+  "HTML5",
+  "CSS3",
+  "Figma",
+  "Git",
+  "Jira",
 ];
 
 export const skillGroupsByLanguage = {

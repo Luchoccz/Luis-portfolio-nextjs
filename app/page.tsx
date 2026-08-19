@@ -28,8 +28,10 @@ import { calculateExperienceDuration, formatExperienceDuration } from "@/lib/exp
 import {
   WORK_START_DATE,
   currentCompany,
+  freelanceCompany,
   educationInstitution,
   experienceTechnologies,
+  freelanceExperienceTechnologies,
   experiencePointsByLanguage,
   courseListByLanguage,
   graduationYear,
@@ -83,6 +85,8 @@ const copyByLanguage = {
     experienceTitle: "Experiencia",
     currentRole: "Desarrollador Frontend",
     currentTime: "Diciembre 2020 - Actualidad · Caracas, Venezuela",
+    freelanceRole: "Desarrollador Frontend",
+    freelanceTime: "Octubre 2025 - Marzo 2026 (6 meses) · Remoto",
     technologiesUsed: "Tecnologías y herramientas utilizadas",
     projectsTitle: "Proyectos Destacados",
     projectsCta: "Ver Proyecto",
@@ -131,6 +135,8 @@ const copyByLanguage = {
     experienceTitle: "Experience",
     currentRole: "Frontend Developer",
     currentTime: "December 2020 - Present · Caracas, Venezuela",
+    freelanceRole: "Frontend Developer",
+    freelanceTime: "October 2025 - March 2026 (6 months) · Remote",
     technologiesUsed: "Technologies & tools used",
     projectsTitle: "Featured Projects",
     projectsCta: "View Project",
@@ -317,6 +323,22 @@ export default function Home() {
     language === "es"
       ? `${experienceDurationLabel} de experiencia`
       : `${experienceDurationLabel} of experience`;
+  const experiences = [
+    {
+      role: t.currentRole,
+      company: currentCompany,
+      period: t.currentTime,
+      points: experiencePoints,
+      technologies: experienceTechnologies,
+    },
+    {
+      role: t.freelanceRole,
+      company: freelanceCompany,
+      period: t.freelanceTime,
+      points: experiencePoints,
+      technologies: freelanceExperienceTechnologies,
+    },
+  ];
 
   const handleDownloadCv = () => {
     generateCvPdf({
@@ -340,13 +362,7 @@ export default function Home() {
         certifications: t.certificationTitle,
         technologies: t.technologiesUsed,
       },
-      experience: {
-        role: t.currentRole,
-        company: currentCompany,
-        period: t.currentTime,
-        points: experiencePoints,
-        technologies: experienceTechnologies,
-      },
+      experiences,
       education: {
         degree: t.degreeTitle,
         institution: `${educationInstitution} · ${graduationYear}`,
@@ -1189,37 +1205,41 @@ export default function Home() {
           {t.experienceTitle}
         </Typography>
 
-        <Paper sx={{ p: { xs: 2.5, md: 4 }, borderRadius: 4, ...surfacePanelSx }}>
-          <Box sx={{ display: "flex", flexDirection: { xs: "column", md: "row" }, justifyContent: "space-between", gap: 2, mb: 3 }}>
-            <Box>
-              <Typography variant="h5" sx={{ fontWeight: 700, color: titleColorPrimary }}>{t.currentRole}</Typography>
-              <Typography variant="body1" sx={{ color: "#a7b7d0", mt: 0.5 }}>Grupo Venemergencia</Typography>
-            </Box>
-            <Typography variant="body2" sx={{ color: "#a7b7d0", fontWeight: 600 }}>
-              {t.currentTime}
-            </Typography>
-          </Box>
-
-          <Divider sx={{ borderColor: "rgba(255,255,255,0.08)", mb: 3 }} />
-
-          <Box sx={{ display: "flex", flexDirection: "column", gap: 2, pl: { xs: 0, md: 1 } }}>
-            {experiencePoints.map((point) => (
-              <Box key={point} sx={{ display: "flex", alignItems: "flex-start", gap: 1.5 }}>
-                <Box sx={{ width: 8, height: 8, borderRadius: "50%", bgcolor: "#8ef5b8", mt: 1.2, flexShrink: 0 }} />
-                <Typography variant="body1" sx={{ color: "#dfe3ea", lineHeight: 1.8 }}>{point}</Typography>
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
+          {experiences.map((experience) => (
+            <Paper key={experience.company} sx={{ p: { xs: 2.5, md: 4 }, borderRadius: 4, ...surfacePanelSx }}>
+              <Box sx={{ display: "flex", flexDirection: { xs: "column", md: "row" }, justifyContent: "space-between", gap: 2, mb: 3 }}>
+                <Box>
+                  <Typography variant="h5" sx={{ fontWeight: 700, color: titleColorPrimary }}>{experience.role}</Typography>
+                  <Typography variant="body1" sx={{ color: "#a7b7d0", mt: 0.5 }}>{experience.company}</Typography>
+                </Box>
+                <Typography variant="body2" sx={{ color: "#a7b7d0", fontWeight: 600 }}>
+                  {experience.period}
+                </Typography>
               </Box>
-            ))}
-          </Box>
 
-          <Typography variant="overline" sx={{ display: "block", mt: 4, color: "#8fa1bf", letterSpacing: 1.4 }}>
-            {t.technologiesUsed}
-          </Typography>
-          <Box sx={{ mt: 1.5, display: "flex", alignItems: "center", gap: 1, flexWrap: "wrap" }}>
-            {experienceTechnologies.map((tool) => (
-              <Chip key={tool} label={tool} sx={techChipSx} />
-            ))}
-          </Box>
-        </Paper>
+              <Divider sx={{ borderColor: "rgba(255,255,255,0.08)", mb: 3 }} />
+
+              <Box sx={{ display: "flex", flexDirection: "column", gap: 2, pl: { xs: 0, md: 1 } }}>
+                {experience.points.map((point) => (
+                  <Box key={point} sx={{ display: "flex", alignItems: "flex-start", gap: 1.5 }}>
+                    <Box sx={{ width: 8, height: 8, borderRadius: "50%", bgcolor: "#8ef5b8", mt: 1.2, flexShrink: 0 }} />
+                    <Typography variant="body1" sx={{ color: "#dfe3ea", lineHeight: 1.8 }}>{point}</Typography>
+                  </Box>
+                ))}
+              </Box>
+
+              <Typography variant="overline" sx={{ display: "block", mt: 4, color: "#8fa1bf", letterSpacing: 1.4 }}>
+                {t.technologiesUsed}
+              </Typography>
+              <Box sx={{ mt: 1.5, display: "flex", alignItems: "center", gap: 1, flexWrap: "wrap" }}>
+                {experience.technologies.map((tool) => (
+                  <Chip key={tool} label={tool} sx={techChipSx} />
+                ))}
+              </Box>
+            </Paper>
+          ))}
+        </Box>
 
         <ProjectCarousel
           projects={PROJECTS}

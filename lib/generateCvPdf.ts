@@ -19,13 +19,13 @@ export type CvPdfData = {
     certifications: string;
     technologies: string;
   };
-  experience: {
+  experiences: Array<{
     role: string;
     company: string;
     period: string;
     points: string[];
     technologies: string[];
-  };
+  }>;
   education: {
     degree: string;
     institution: string;
@@ -134,14 +134,19 @@ export const generateCvPdf = (data: CvPdfData): void => {
 
   // Experience
   writeSectionTitle(data.sectionLabels.experience);
-  writeParagraph(`${data.experience.role} — ${data.experience.company}`, { bold: true, fontSize: 11.5 });
-  writeParagraph(data.experience.period, { fontSize: 9.5, color: MUTED });
-  cursorY += 1;
-  data.experience.points.forEach((point) => writeBullet(point));
-  cursorY += 2;
-  writeParagraph(`${data.sectionLabels.technologies}: ${data.experience.technologies.join(", ")}`, {
-    fontSize: 9.5,
-    color: MUTED,
+  data.experiences.forEach((experience, index) => {
+    writeParagraph(`${experience.role} — ${experience.company}`, { bold: true, fontSize: 11.5 });
+    writeParagraph(experience.period, { fontSize: 9.5, color: MUTED });
+    cursorY += 1;
+    experience.points.forEach((point) => writeBullet(point));
+    cursorY += 2;
+    writeParagraph(`${data.sectionLabels.technologies}: ${experience.technologies.join(", ")}`, {
+      fontSize: 9.5,
+      color: MUTED,
+    });
+    if (index < data.experiences.length - 1) {
+      cursorY += 3;
+    }
   });
 
   // Education
