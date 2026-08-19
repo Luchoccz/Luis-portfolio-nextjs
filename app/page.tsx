@@ -929,7 +929,7 @@ export default function Home() {
               transform: { xs: "translateX(-50%)", md: "translateX(48px)" },
               zIndex: 1,
               opacity: { xs: 0.95, md: 1 },
-              overflow: "visible",
+              overflow: { xs: "hidden", md: "visible" },
               backgroundColor: "transparent",
               border: "none",
               boxShadow: "none",
@@ -955,8 +955,8 @@ export default function Home() {
             <Box
               sx={{
                 position: "absolute",
-                width: { xs: 360, md: 450 },
-                height: { xs: 360, md: 450 },
+                width: { xs: 290, md: 450 },
+                height: { xs: 290, md: 450 },
                 borderRadius: "50%",
                 border: "1px solid rgba(165,175,255,0.24)",
               }}
@@ -964,8 +964,8 @@ export default function Home() {
             <Box
               sx={{
                 position: "absolute",
-                width: { xs: 245, md: 290 },
-                height: { xs: 245, md: 290 },
+                width: { xs: 198, md: 290 },
+                height: { xs: 198, md: 290 },
                 borderRadius: "50%",
                 border: "1px solid rgba(165,175,255,0.24)",
               }}
@@ -974,8 +974,8 @@ export default function Home() {
             <Box
               sx={{
                 position: "absolute",
-                width: { xs: 360, md: 450 },
-                height: { xs: 360, md: 450 },
+                width: { xs: 290, md: 450 },
+                height: { xs: 290, md: 450 },
                 borderRadius: "50%",
                 animation: `orbit-spin ${outerOrbitDuration} linear infinite`,
               }}
@@ -989,8 +989,8 @@ export default function Home() {
                       position: "absolute",
                       top,
                       left,
-                      width: { xs: 44, md: 50 },
-                      height: { xs: 44, md: 50 },
+                      width: { xs: 34, md: 50 },
+                      height: { xs: 34, md: 50 },
                       borderRadius: "50%",
                       bgcolor: "#f8faff",
                       border: "1px solid rgba(11,15,26,0.24)",
@@ -1055,8 +1055,8 @@ export default function Home() {
             <Box
               sx={{
                 position: "absolute",
-                width: { xs: 245, md: 290 },
-                height: { xs: 245, md: 290 },
+                width: { xs: 198, md: 290 },
+                height: { xs: 198, md: 290 },
                 borderRadius: "50%",
                 animation: `orbit-spin-reverse ${innerOrbitDuration} linear infinite`,
               }}
@@ -1070,8 +1070,8 @@ export default function Home() {
                       position: "absolute",
                       top,
                       left,
-                      width: { xs: 40, md: 46 },
-                      height: { xs: 40, md: 46 },
+                      width: { xs: 32, md: 46 },
+                      height: { xs: 32, md: 46 },
                       borderRadius: "50%",
                       bgcolor: "#f8faff",
                       border: "1px solid rgba(11,15,26,0.24)",
