@@ -278,8 +278,27 @@ export default function Home() {
       return "es";
     }
 
+    // La preferencia guardada manualmente por el usuario siempre gana
+    // sobre la detección automática del navegador.
     const saved = window.localStorage.getItem("portfolio-language");
-    return saved === "en" || saved === "es" ? saved : "es";
+    if (saved === "en" || saved === "es") {
+      return saved;
+    }
+
+    // Sin preferencia guardada (primera visita): usar el idioma del
+    // navegador como arranque automático. `navigator.languages` refleja
+    // el orden de preferencia real del usuario mejor que el único
+    // `navigator.language`, así que se prioriza cuando está disponible.
+    const browserLanguages = window.navigator.languages?.length
+      ? window.navigator.languages
+      : [window.navigator.language];
+    const prefersEnglish = browserLanguages.some((lang) =>
+      lang?.toLowerCase().startsWith("en")
+    );
+
+    // Cualquier idioma que no sea inglés (español incluido) cae al
+    // español por defecto, como pide el requerimiento.
+    return prefersEnglish ? "en" : "es";
   });
 
   useEffect(() => {
