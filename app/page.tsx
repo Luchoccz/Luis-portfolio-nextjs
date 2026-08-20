@@ -443,8 +443,12 @@ export default function Home() {
               >
                 LC
               </Box>
+              {/* Marca del nav, no un heading de contenido: usar
+                  component="span" evita un <h6> duplicado del nombre que
+                  ya es el <h1> del hero. */}
               <Typography
                 variant="h6"
+                component="span"
                 sx={{
                   fontWeight: 700,
                   color: titleColorPrimary,
@@ -525,6 +529,7 @@ export default function Home() {
                 </Box>
                 <Typography
                   variant="h6"
+                  component="span"
                   sx={{
                     fontWeight: 700,
                     color: titleColorPrimary,
@@ -836,11 +841,21 @@ export default function Home() {
               }}
             />
 
-            <Typography variant="h2" sx={{ fontWeight: 800, lineHeight: 1.02, letterSpacing: -1.2, fontSize: { xs: 42, sm: 54, md: 40 }, color: titleColorPrimary }}>
+            <Typography
+              variant="h2"
+              component="h1"
+              sx={{ fontWeight: 800, lineHeight: 1.02, letterSpacing: -1.2, fontSize: { xs: 42, sm: 54, md: 40 }, color: titleColorPrimary }}
+            >
               {t.hello} <span style={{ color: "#d9e2f1" }}>Luis Colmenares</span>
             </Typography>
 
-            <Typography variant="h3" sx={{ mt: 2, fontWeight: 700, color: "#a9b6cf", fontSize: { xs: 26, md: 32 } }}>
+            {/* Subtítulo del hero, no un heading nuevo: el h1 de arriba ya es
+                el único encabezado de nivel 1 de la página. */}
+            <Typography
+              variant="h3"
+              component="p"
+              sx={{ mt: 2, fontWeight: 700, color: "#a9b6cf", fontSize: { xs: 26, md: 32 } }}
+            >
               {t.role}
             </Typography>
 
@@ -1164,10 +1179,10 @@ export default function Home() {
       <Container id="about" maxWidth="lg" sx={{ py: { xs: 6, md: 8 } }}>
         <Box sx={{ display: "flex", flexDirection: { xs: "column", md: "row" }, gap: 5, alignItems: "center" }}>
           <Box sx={{ flex: 1 }}>
-            <Typography variant="h3" sx={{ fontWeight: 800, mb: 2, letterSpacing: -0.8, color: titleColorAccent }}>
+            <Typography variant="h3" component="h2" sx={{ fontWeight: 800, mb: 2, letterSpacing: -0.8, color: titleColorAccent }}>
               {t.aboutTitle}
             </Typography>
-            <Typography variant="h5" sx={{ fontWeight: 700, color: "#dfe3ea", mb: 1 }}>
+            <Typography variant="h5" component="h3" sx={{ fontWeight: 700, color: "#dfe3ea", mb: 1 }}>
               {t.aboutSubtitle}
             </Typography>
             <Typography variant="body1" sx={{ color: "#c6cfdf", lineHeight: 1.9 }}>
@@ -1201,7 +1216,7 @@ export default function Home() {
       </Container>
 
       <Container id="experience" maxWidth="lg" sx={{ py: { xs: 6, md: 8 } }}>
-        <Typography variant="h3" sx={{ fontWeight: 800, mb: 4, letterSpacing: -0.8, color: titleColorAccent }}>
+        <Typography variant="h3" component="h2" sx={{ fontWeight: 800, mb: 4, letterSpacing: -0.8, color: titleColorAccent }}>
           {t.experienceTitle}
         </Typography>
 
@@ -1210,7 +1225,7 @@ export default function Home() {
             <Paper key={experience.company} sx={{ p: { xs: 2.5, md: 4 }, borderRadius: 4, ...surfacePanelSx }}>
               <Box sx={{ display: "flex", flexDirection: { xs: "column", md: "row" }, justifyContent: "space-between", gap: 2, mb: 3 }}>
                 <Box>
-                  <Typography variant="h5" sx={{ fontWeight: 700, color: titleColorPrimary }}>{experience.role}</Typography>
+                  <Typography variant="h5" component="h3" sx={{ fontWeight: 700, color: titleColorPrimary }}>{experience.role}</Typography>
                   <Typography variant="body1" sx={{ color: "#a7b7d0", mt: 0.5 }}>{experience.company}</Typography>
                 </Box>
                 <Typography variant="body2" sx={{ color: "#a7b7d0", fontWeight: 600 }}>
@@ -1251,7 +1266,7 @@ export default function Home() {
       </Container>
 
       <Container id="skills" maxWidth="lg" sx={{ py: { xs: 6, md: 8 } }}>
-        <Typography variant="h3" sx={{ fontWeight: 800, mb: 4, letterSpacing: -0.8, color: titleColorAccent }}>
+        <Typography variant="h3" component="h2" sx={{ fontWeight: 800, mb: 4, letterSpacing: -0.8, color: titleColorAccent }}>
           {t.skillsTitle}
         </Typography>
 
@@ -1259,7 +1274,7 @@ export default function Home() {
           {skillGroups.map((group) => (
             <Box key={group.title} sx={{ flex: "1 1 280px", minWidth: 0 }}>
               <Paper sx={{ p: 3, borderRadius: 4, height: "100%", ...surfacePanelSx }}>
-                <Typography variant="h6" sx={{ fontWeight: 700, mb: 2, color: titleColorPrimary }}>
+                <Typography variant="h6" component="h3" sx={{ fontWeight: 700, mb: 2, color: titleColorPrimary }}>
                   {group.title}
                 </Typography>
                 <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
@@ -1277,7 +1292,7 @@ export default function Home() {
         <Box sx={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
           <Box sx={{ flex: "1 1 280px" }}>
             <Paper sx={{ p: 3, borderRadius: 4, ...surfacePanelSx }}>
-              <Typography variant="h5" sx={{ fontWeight: 700, mb: 2, color: titleColorPrimary }}>{t.educationTitle}</Typography>
+              <Typography variant="h5" component="h2" sx={{ fontWeight: 700, mb: 2, color: titleColorPrimary }}>{t.educationTitle}</Typography>
               <Typography variant="body1" sx={{ color: "#f4f7fb", fontWeight: 600 }}>{t.degreeTitle}</Typography>
               <Typography variant="body2" sx={{ color: "#a7b7d0", mt: 0.5 }}>Universidad Santa Maria · 2017</Typography>
             </Paper>
@@ -1285,7 +1300,7 @@ export default function Home() {
 
           <Box sx={{ flex: "1 1 280px" }}>
             <Paper sx={{ p: 3, borderRadius: 4, ...surfacePanelSx }}>
-              <Typography variant="h5" sx={{ fontWeight: 700, mb: 2, color: titleColorPrimary }}>{t.certificationTitle}</Typography>
+              <Typography variant="h5" component="h2" sx={{ fontWeight: 700, mb: 2, color: titleColorPrimary }}>{t.certificationTitle}</Typography>
               <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
                 {courseList.slice(0, 8).map((course) => (
                   <Typography key={course} variant="body2" sx={{ color: "#dfe3ea" }}>• {course}</Typography>
@@ -1301,7 +1316,7 @@ export default function Home() {
           <Box sx={{ display: "flex", flexDirection: { xs: "column", md: "row" }, justifyContent: "space-between", alignItems: { xs: "flex-start", md: "center" }, gap: 3 }}>
             <Box>
               <Typography variant="overline" sx={{ color: "#afc2ff", letterSpacing: 1.5 }}>{t.contactSectionLabel}</Typography>
-              <Typography variant="h4" sx={{ fontWeight: 800, mt: 1, color: titleColorPrimary }}>{t.contactSectionTitle}</Typography>
+              <Typography variant="h4" component="h2" sx={{ fontWeight: 800, mt: 1, color: titleColorPrimary }}>{t.contactSectionTitle}</Typography>
             </Box>
             <Box sx={{ display: "flex", gap: 2, flexDirection: { xs: "column", sm: "row" } }}>
               <Button

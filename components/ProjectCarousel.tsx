@@ -143,9 +143,11 @@ export default function ProjectCarousel({
           px: { xs: 2, md: 4 },
         }}
       >
+        {/* Anidado dentro de la sección "Experiencia" (h2): este título de
+            carrusel es un h3, y el nombre de cada proyecto (abajo) un h4. */}
         <Typography
           variant="h4"
-          component="h4"
+          component="h3"
           sx={{ fontWeight: 700, color: '#dfe3ea' }}
         >
           {title}
@@ -276,7 +278,7 @@ function ProjectCard({ project, ctaLabel }: { project: Project; ctaLabel: string
           ))}
         </Stack>
 
-        <Typography variant="h5" component="h5" sx={{ fontSize: '1.15rem', fontWeight: 600, color: '#f3f7ff' }}>
+        <Typography variant="h5" component="h4" sx={{ fontSize: '1.15rem', fontWeight: 600, color: '#f3f7ff' }}>
           {project.title}
         </Typography>
 
