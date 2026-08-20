@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import "./globals.css";
 
@@ -8,6 +9,12 @@ const inter = Inter({
   variable: "--font-inter",
   display: "swap",
 });
+
+const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+// Solo en producción y solo si hay un ID real: `next dev` nunca dispara
+// hits contra la propiedad de GA4 (ver .env.example para cómo probar
+// esto localmente con un build de producción).
+const isAnalyticsEnabled = process.env.NODE_ENV === "production" && Boolean(GA_MEASUREMENT_ID);
 
 const SITE_URL = "https://luisccz.com";
 const SITE_TITLE = "Luis Colmenares | Desarrollador Frontend React & Next.js";
@@ -156,6 +163,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <div className="page-content">
           <AppRouterCacheProvider>{children}</AppRouterCacheProvider>
         </div>
+        {isAnalyticsEnabled ? <GoogleAnalytics gaId={GA_MEASUREMENT_ID!} /> : null}
       </body>
     </html>
   );

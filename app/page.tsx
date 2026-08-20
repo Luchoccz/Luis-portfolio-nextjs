@@ -39,6 +39,7 @@ import {
   skillGroupsByLanguage,
 } from "@/lib/cvContent";
 import { generateCvPdf } from "@/lib/generateCvPdf";
+import { trackEvent } from "@/lib/analytics";
 import {
   SiCss,
   SiFirebase,
@@ -341,6 +342,7 @@ export default function Home() {
   ];
 
   const handleDownloadCv = () => {
+    trackEvent("cv_download", { language });
     generateCvPdf({
       language,
       fileName:
@@ -867,6 +869,7 @@ export default function Home() {
               <Button
                 variant="contained"
                 href="mailto:luiszrita@gmail.com"
+                onClick={() => trackEvent("contact_click", { method: "email", location: "hero" })}
                 sx={{
                   borderRadius: 999,
                   bgcolor: "#f2f5f9",
@@ -886,6 +889,7 @@ export default function Home() {
                 href="https://www.linkedin.com/in/luis-carlos-colmenares-zurita-18557413a/"
                 target="_blank"
                 rel="noreferrer"
+                onClick={() => trackEvent("contact_click", { method: "linkedin", location: "hero" })}
                 sx={{
                   borderRadius: 999,
                   borderColor: "rgba(255,255,255,0.2)",
@@ -909,6 +913,7 @@ export default function Home() {
               <Link
                 href="mailto:luiszrita@gmail.com"
                 underline="none"
+                onClick={() => trackEvent("contact_click", { method: "email", location: "hero_info" })}
                 sx={{ display: "flex", alignItems: "center", gap: 1, color: "inherit", "&:hover": { color: "#f5f7fa" }, ...focusRingSx }}
               >
                 <EmailOutlinedIcon sx={{ fontSize: 18, color: "#a9b6cf" }} />
@@ -917,6 +922,7 @@ export default function Home() {
               <Link
                 href="tel:+584241070060"
                 underline="none"
+                onClick={() => trackEvent("contact_click", { method: "phone", location: "hero_info" })}
                 sx={{ display: "flex", alignItems: "center", gap: 1, color: "inherit", "&:hover": { color: "#f5f7fa" }, ...focusRingSx }}
               >
                 <PhoneOutlinedIcon sx={{ fontSize: 18, color: "#a9b6cf" }} />
@@ -1322,6 +1328,7 @@ export default function Home() {
               <Button
                 startIcon={<EmailOutlinedIcon />}
                 href="mailto:luiszrita@gmail.com"
+                onClick={() => trackEvent("contact_click", { method: "email", location: "contact_section" })}
                 sx={{
                   borderRadius: 999,
                   bgcolor: "#f3f6fb",
@@ -1340,6 +1347,7 @@ export default function Home() {
                 href="https://www.linkedin.com/in/luis-carlos-colmenares-zurita-18557413a/"
                 target="_blank"
                 rel="noreferrer"
+                onClick={() => trackEvent("contact_click", { method: "linkedin", location: "contact_section" })}
                 sx={{
                   borderRadius: 999,
                   borderColor: "rgba(255,255,255,0.2)",

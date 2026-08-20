@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import TextField from '@mui/material/TextField';
 import SendRoundedIcon from '@mui/icons-material/SendRounded';
+import { trackEvent } from '@/lib/analytics';
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MESSAGE_MIN_LENGTH = 10;
@@ -138,6 +139,10 @@ export default function ContactForm({ labels }: ContactFormProps) {
       });
 
       if (response.ok) {
+        // Evento recomendado de GA4 para captura de leads. Deliberadamente
+        // no se dispara en la rama del honeypot de arriba (esa es un bot,
+        // no una conversión real).
+        trackEvent('generate_lead', { method: 'contact_form' });
         setStatus('success');
         setFeedback(t.successMessage);
         setEmail('');
